@@ -1,23 +1,19 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example</groupId>
-  <artifactId>legacy-app</artifactId>
+  <artifactId>legacy-orders-java6</artifactId>
   <version>0.1.0</version>
-  <name>legacy-app</name>
   <packaging>jar</packaging>
-
+  <name>legacy-orders-java6</name>
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
   <build>
-    <finalName>legacy-app</finalName>
+    <finalName>legacy-orders-java6</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -25,7 +21,7 @@
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
-          <encoding>UTF-8</encoding>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -34,7 +30,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.example.legacy.App</mainClass>
+              <mainClass>com.example.legacy.app.App</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -45,7 +41,6 @@
       </plugin>
     </plugins>
   </build>
-
   <dependencies>
   </dependencies>
 </project>
