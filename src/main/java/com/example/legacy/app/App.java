@@ -19,7 +19,7 @@ public class App {
         OrderService service = new OrderService(repository);
 
         Customer c = new Customer(UUID.randomUUID().toString(), "Renzo Iwamoto", "renzo@example.com");
-        Order o = service.createOrder(c, 149.90d, Instant.now());
+        Order o = service.createOrder(c, 149.90d);
 
         String xml = XmlMarshaller.toXml(o);
         System.out.println("XML generado (JAXB - Java 21):\n" + xml);

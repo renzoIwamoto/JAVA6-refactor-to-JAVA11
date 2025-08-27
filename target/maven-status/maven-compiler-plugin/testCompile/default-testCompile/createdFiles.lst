@@ -1,0 +1,8 @@
+com\example\legacy\repository\OrderRepositoryTest.class
+com\example\legacy\legacy\LegacySoapServiceTest.class
+com\example\legacy\model\OrderTest.class
+com\example\legacy\model\CustomerTest.class
+com\example\legacy\service\OrderServiceTest.class
+com\example\legacy\legacy\XmlMarshallerTest.class
+com\example\legacy\legacy\LegacyBase64Test.class
+com\example\legacy\util\InstantAdapterTest.class
