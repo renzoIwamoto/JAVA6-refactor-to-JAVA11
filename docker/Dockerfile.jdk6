@@ -1,0 +1,5 @@
+
+FROM openjdk:6-jdk
+RUN apt-get update && apt-get install -y wget tar &&     wget -q https://archive.apache.org/dist/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz &&     tar -xzf apache-maven-3.2.5-bin.tar.gz -C /opt &&     ln -s /opt/apache-maven-3.2.5/bin/mvn /usr/local/bin/mvn
+WORKDIR /work
+CMD ["/bin/bash"]

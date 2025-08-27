@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"name": "JAVA6-refactor-to-JAVA11",
+			"path": "."
+		},
+		{
+			"name": "baseline-java6",
+			"path": "../../../../Downloads/java6-to-java21/java6-to-java21/baseline-java6"
+		},
+		{
+			"name": "java21-ci",
+			"path": "../../../../Downloads/java6-to-java21/java6-to-java21/java21-ci"
+		},
+		{
+			"name": "docker",
+			"path": "../../../../Downloads/java6-to-java21/java6-to-java21/docker"
+		},
+		{
+			"name": "scripts",
+			"path": "../../../../Downloads/java6-to-java21/java6-to-java21/scripts"
+		}
+	],
+	"settings": {}
+}
