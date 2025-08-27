@@ -19,7 +19,7 @@ public class App {
         var service = new OrderService(repository);
 
         var customer = new Customer(UUID.randomUUID().toString(), "Renzo Iwamoto", "renzo@example.com");
-        var order = service.createOrder(customer, 149.90d, Instant.now());
+        var order = service.createOrder(customer, 149.90d);
 
         var xml = XmlMarshaller.toXml(order);
         System.out.println("XML generado (JAXB - JDK6):\n" + xml);

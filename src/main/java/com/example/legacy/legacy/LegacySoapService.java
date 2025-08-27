@@ -22,7 +22,7 @@ public class LegacySoapService {
     @WebMethod
     public int createSampleOrder(String customerName, double amount) {
         var customer = new Customer(UUID.randomUUID().toString(), customerName, customerName + "@example.com");
-        var order = service.createOrder(customer, amount, Instant.now());
+        var order = service.createOrder(customer, amount);
         return service.listByCustomer(customer.getId()).size();
     }
 

@@ -1,6 +1,7 @@
 package com.example.legacy.repository;
 
 import com.example.legacy.model.Order;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -11,7 +12,7 @@ public class OrderRepository {
     public void save(Order o) { orders.add(o); }
 
     public List<Order> findAll() {
-        return List.copyOf(orders);
+        return Collections.unmodifiableList(orders);
     }
 
     public Optional<Order> findById(String id) {

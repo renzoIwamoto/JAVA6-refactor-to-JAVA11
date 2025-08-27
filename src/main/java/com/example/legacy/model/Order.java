@@ -3,6 +3,7 @@ package com.example.legacy.model;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.Instant;
 
 @XmlRootElement(name = "order")
@@ -11,6 +12,7 @@ public class Order {
     private String id;
     private String customerId;
     private double amount;
+    @XmlJavaTypeAdapter(InstantAdapter.class)
     private Instant createdAt;
 
     public Order() {}
