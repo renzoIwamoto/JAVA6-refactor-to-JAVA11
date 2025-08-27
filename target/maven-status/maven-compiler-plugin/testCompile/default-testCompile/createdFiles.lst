@@ -1,0 +1,4 @@
+com\example\legacy\repository\OrderRepositoryTest.class
+com\example\legacy\model\OrderTest.class
+com\example\legacy\service\OrderServiceTest.class
+com\example\legacy\legacy\XmlMarshallerTest.class

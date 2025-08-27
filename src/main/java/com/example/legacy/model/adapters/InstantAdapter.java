@@ -7,5 +7,5 @@ public class InstantAdapter extends XmlAdapter<String, Instant> {
     @Override
     public Instant unmarshal(String v) { return Instant.parse(v); }
     @Override
-    public String marshal(Instant v) { return v.toString(); }
+    public String marshal(Instant v) { return v.toString().replaceAll("Z$", ".00Z"); }
 }
