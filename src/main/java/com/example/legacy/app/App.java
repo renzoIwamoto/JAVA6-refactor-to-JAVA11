@@ -9,7 +9,7 @@ import com.example.legacy.legacy.LegacyBase64;
 import com.example.legacy.legacy.LegacySoapEndpoint;
 import com.example.legacy.security.SecurityBootstrap;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 public class App {
@@ -18,8 +18,8 @@ public class App {
         OrderRepository repository = new OrderRepository();
         OrderService service = new OrderService(repository);
 
-        Customer c = new Customer(UUID.randomUUID().toString(), "Renzo Iwamoto", "renzo@example.com");
-        Order o = service.createOrder(c, 149.90d, new Date());
+    Customer c = new Customer(UUID.randomUUID().toString(), "Renzo Iwamoto", "renzo@example.com");
+    Order o = service.createOrder(c, 149.90d, Instant.now());
 
         String xml = XmlMarshaller.toXml(o);
         System.out.println("XML generado (JAXB - JDK6):\n" + xml);
