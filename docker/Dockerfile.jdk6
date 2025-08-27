@@ -1,0 +1,34 @@
+# Legacy Docker image for Java 6 with Maven
+# Uses the last available OpenJDK 6 image
+FROM openjdk:6-jdk
+
+# Install Maven 3.2.5 (last version compatible with Java 6)
+RUN apt-get update && apt-get install -y wget && \
+    wget https://archive.apache.org/dist/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz && \
+    tar -xzf apache-maven-3.2.5-bin.tar.gz -C /opt && \
+    ln -s /opt/apache-maven-3.2.5 /opt/maven && \
+    rm apache-maven-3.2.5-bin.tar.gz && \
+    apt-get clean
+
+# Set Maven environment variables
+ENV M2_HOME=/opt/maven
+ENV MAVEN_HOME=/opt/maven
+ENV PATH=${MAVEN_HOME}/bin:${PATH}
+
+# Set working directory
+WORKDIR /work
+
+# Expose port for SOAP service
+EXPOSE 8080
+
+# Default command
+CMD ["bash"]
+
+# Build information
+LABEL description="Java 6 + Maven 3.2.5 for legacy application development"
+LABEL java.version="1.6"
+LABEL maven.version="3.2.5"
+LABEL maintainer="Legacy Orders Java 6 Project"
+
+# Print versions on build
+RUN java -version && mvn -version

@@ -1,0 +1,81 @@
+// Legacy Security Policy for Java 6
+// WARNING: SecurityManager is deprecated in Java 17+ and disabled by default in Java 21+
+// This policy file demonstrates permissions that were commonly used in Java 6 applications
+
+grant {
+    // Basic runtime permissions
+    permission java.lang.RuntimePermission "createClassLoader";
+    permission java.lang.RuntimePermission "getClassLoader";
+    permission java.lang.RuntimePermission "setContextClassLoader";
+    permission java.lang.RuntimePermission "getProtectionDomain";
+    
+    // System property access
+    permission java.util.PropertyPermission "*", "read,write";
+    
+    // File system permissions for application directories
+    permission java.io.FilePermission ".", "read";
+    permission java.io.FilePermission "./-", "read,write,delete";
+    permission java.io.FilePermission "${user.home}/-", "read,write";
+    permission java.io.FilePermission "${java.io.tmpdir}/-", "read,write,delete";
+    
+    // Target directory for Maven builds
+    permission java.io.FilePermission "target/-", "read,write,delete";
+    permission java.io.FilePermission "src/-", "read";
+    permission java.io.FilePermission "security/-", "read";
+    
+    // XML and configuration files
+    permission java.io.FilePermission "*.xml", "read,write";
+    permission java.io.FilePermission "*.policy", "read";
+    permission java.io.FilePermission "*.properties", "read,write";
+    permission java.io.FilePermission "*.wsdl", "read";
+    
+    // Network permissions for SOAP service
+    permission java.net.SocketPermission "*:8080", "listen,resolve";
+    permission java.net.SocketPermission "*:8080-8090", "listen,resolve";
+    permission java.net.SocketPermission "localhost:*", "connect,resolve";
+    permission java.net.SocketPermission "127.0.0.1:*", "connect,resolve";
+    permission java.net.SocketPermission "0.0.0.0:*", "listen,resolve";
+    
+    // Reflection permissions (needed for JAXB/JAX-WS)
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.RuntimePermission "getStackTrace";
+    permission java.lang.RuntimePermission "getClassLoader";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    
+    // Security permissions
+    permission java.security.SecurityPermission "getPolicy";
+    permission java.security.SecurityPermission "setPolicy";
+    permission java.lang.RuntimePermission "setSecurityManager";
+    
+    // Threading permissions
+    permission java.lang.RuntimePermission "modifyThread";
+    permission java.lang.RuntimePermission "modifyThreadGroup";
+    
+    // JMX permissions (sometimes needed by application servers)
+    permission javax.management.MBeanPermission "*", "*";
+    
+    // Logging permissions
+    permission java.util.logging.LoggingPermission "control";
+    
+    // SSL/TLS permissions for secure connections
+    permission javax.net.ssl.SSLPermission "*";
+    
+    // Permission to access sun.* packages (used by our Base64 encoder)
+    permission java.lang.RuntimePermission "accessClassInPackage.sun.misc";
+    permission java.lang.RuntimePermission "accessClassInPackage.sun.security.util";
+};
+
+// Grant all permissions to system classes (Java runtime)
+grant codeBase "file:${java.home}/lib/*" {
+    permission java.security.AllPermission;
+};
+
+// Grant all permissions to application classes in development
+grant codeBase "file:target/classes/-" {
+    permission java.security.AllPermission;
+};
+
+// Grant permissions for Maven Surefire (if running tests)
+grant codeBase "file:${user.home}/.m2/repository/-" {
+    permission java.security.AllPermission;
+};
