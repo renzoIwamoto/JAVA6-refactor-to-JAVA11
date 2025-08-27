@@ -9,24 +9,24 @@ import com.example.legacy.legacy.LegacyBase64;
 import com.example.legacy.legacy.LegacySoapEndpoint;
 import com.example.legacy.security.SecurityBootstrap;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 public class App {
     public static void main(String[] args) throws Exception {
         SecurityBootstrap.install();
-        OrderRepository repository = new OrderRepository();
-        OrderService service = new OrderService(repository);
+        var repository = new OrderRepository();
+        var service = new OrderService(repository);
 
-        Customer c = new Customer(UUID.randomUUID().toString(), "Renzo Iwamoto", "renzo@example.com");
-        Order o = service.createOrder(c, 149.90d, new Date());
+        var customer = new Customer(UUID.randomUUID().toString(), "Renzo Iwamoto", "renzo@example.com");
+        var order = service.createOrder(customer, 149.90d, Instant.now());
 
-        String xml = XmlMarshaller.toXml(o);
+        var xml = XmlMarshaller.toXml(order);
         System.out.println("XML generado (JAXB - JDK6):\n" + xml);
 
-        String b64 = LegacyBase64.encode(xml.getBytes("UTF-8"));
-        System.out.println("Base64 (sun.misc): " + b64);
-        String xmlBack = new String(LegacyBase64.decode(b64), "UTF-8");
+        var b64 = LegacyBase64.encode(xml.getBytes("UTF-8"));
+        System.out.println("Base64 (java.util): " + b64);
+        var xmlBack = new String(LegacyBase64.decode(b64), "UTF-8");
         System.out.println("Roundtrip Base64 OK: " + xmlBack.startsWith("<?xml"));
 
         LegacySoapEndpoint.publish(service);
