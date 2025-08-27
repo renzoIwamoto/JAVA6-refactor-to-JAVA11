@@ -1,0 +1,10 @@
+/work/src/main/java/com/example/legacy/app/App.java
+/work/src/main/java/com/example/legacy/model/Customer.java
+/work/src/main/java/com/example/legacy/model/Order.java
+/work/src/main/java/com/example/legacy/legacy/LegacyBase64.java
+/work/src/main/java/com/example/legacy/security/SecurityBootstrap.java
+/work/src/main/java/com/example/legacy/repository/OrderRepository.java
+/work/src/main/java/com/example/legacy/legacy/XmlMarshaller.java
+/work/src/main/java/com/example/legacy/legacy/LegacySoapEndpoint.java
+/work/src/main/java/com/example/legacy/legacy/LegacySoapService.java
+/work/src/main/java/com/example/legacy/service/OrderService.java
