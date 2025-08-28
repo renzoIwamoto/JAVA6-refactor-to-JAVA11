@@ -1,0 +1,11 @@
+com\example\legacy\legacy\InstantAdapter.class
+com\example\legacy\legacy\LegacySoapEndpoint.class
+com\example\legacy\app\App.class
+com\example\legacy\legacy\XmlMarshaller.class
+com\example\legacy\model\Order.class
+com\example\legacy\service\OrderService.class
+com\example\legacy\legacy\LegacyBase64.class
+com\example\legacy\legacy\LegacySoapService.class
+com\example\legacy\model\Customer.class
+com\example\legacy\repository\OrderRepository.class
+com\example\legacy\security\SecurityBootstrap.class

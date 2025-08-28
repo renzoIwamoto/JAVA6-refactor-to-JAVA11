@@ -2,9 +2,9 @@ package com.example.legacy.legacy;
 
 import com.example.legacy.model.Order;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -18,6 +18,7 @@ public class XmlMarshaller {
         return sw.toString();
     }
 
+    @SuppressWarnings("unchecked")
     public static Order fromXml(String xml) throws Exception {
         JAXBContext ctx = JAXBContext.newInstance(Order.class);
         Unmarshaller u = ctx.createUnmarshaller();

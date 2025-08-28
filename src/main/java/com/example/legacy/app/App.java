@@ -9,7 +9,7 @@ import com.example.legacy.legacy.LegacyBase64;
 import com.example.legacy.legacy.LegacySoapEndpoint;
 import com.example.legacy.security.SecurityBootstrap;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 public class App {
@@ -19,13 +19,13 @@ public class App {
         OrderService service = new OrderService(repository);
 
         Customer c = new Customer(UUID.randomUUID().toString(), "Renzo Iwamoto", "renzo@example.com");
-        Order o = service.createOrder(c, 149.90d, new Date());
+        Order o = service.createOrder(c, 149.90d, Instant.now());
 
         String xml = XmlMarshaller.toXml(o);
-        System.out.println("XML generado (JAXB - JDK6):\n" + xml);
+        System.out.println("XML generado (JAXB - JDK21):\n" + xml);
 
         String b64 = LegacyBase64.encode(xml.getBytes("UTF-8"));
-        System.out.println("Base64 (sun.misc): " + b64);
+        System.out.println("Base64 (java.util): " + b64);
         String xmlBack = new String(LegacyBase64.decode(b64), "UTF-8");
         System.out.println("Roundtrip Base64 OK: " + xmlBack.startsWith("<?xml"));
 

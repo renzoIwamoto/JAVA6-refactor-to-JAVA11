@@ -2,13 +2,10 @@ package com.example.legacy.security;
 
 public class SecurityBootstrap {
     public static void install() {
-        try {
-            if (System.getSecurityManager() == null) {
-                System.setSecurityManager(new SecurityManager());
-                System.out.println("SecurityManager instalado (Java 6 style).");
-            }
-        } catch (Throwable t) {
-            System.out.println("No se pudo instalar SecurityManager: " + t);
+        System.out.println("ADVERTENCIA: SecurityManager está obsoleto para eliminación en Java 21 y su uso genera advertencias.");
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+            System.out.println("SecurityManager instalado (estilo Java obsoleto).");
         }
     }
 }

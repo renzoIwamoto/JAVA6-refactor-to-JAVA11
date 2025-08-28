@@ -4,9 +4,9 @@ import com.example.legacy.model.Customer;
 import com.example.legacy.model.Order;
 import com.example.legacy.service.OrderService;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-import java.util.Date;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,18 +17,18 @@ public class LegacySoapService {
     public LegacySoapService(OrderService service) { this.service = service; }
 
     @WebMethod
-    public String sayHello(String name) { return "Hola, " + name + " (desde JAX-WS del JDK 6)"; }
+    public String sayHello(String name) { return "Hola, " + name + " (desde JAX-WS 4.0)"; }
 
     @WebMethod
     public int createSampleOrder(String customerName, double amount) {
         Customer c = new Customer(UUID.randomUUID().toString(), customerName, customerName + "@example.com");
-        Order o = service.createOrder(c, amount, new Date());
+        Order o = service.createOrder(c, amount, Instant.now());
         return service.listByCustomer(c.getId()).size();
     }
 
     @WebMethod
     public int countAllOrders() {
-        List all = service.listAll();
+        List<Order> all = service.listAll();
         return all.size();
     }
 }

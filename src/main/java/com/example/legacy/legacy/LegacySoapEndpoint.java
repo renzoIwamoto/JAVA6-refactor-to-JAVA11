@@ -1,7 +1,7 @@
 package com.example.legacy.legacy;
 
 import com.example.legacy.service.OrderService;
-import javax.xml.ws.Endpoint;
+import jakarta.xml.ws.Endpoint;
 
 public class LegacySoapEndpoint {
     public static void publish(OrderService service) {
