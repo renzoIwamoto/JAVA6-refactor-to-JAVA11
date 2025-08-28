@@ -1,32 +1,23 @@
 package com.example.legacy.repository;
 
 import com.example.legacy.model.Order;
-import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class OrderRepository {
-    private final List orders = Collections.synchronizedList(new ArrayList());
+    private final CopyOnWriteArrayList<Order> orders = new CopyOnWriteArrayList<>();
 
     public void save(Order o) { orders.add(o); }
 
-    public List findAll() {
-        List copy = new ArrayList();
-        synchronized (orders) {
-            for (int i = 0; i < orders.size(); i++) {
-                copy.add(orders.get(i));
-            }
-        }
-        return copy;
+    public List<Order> findAll() {
+        return List.copyOf(orders);
     }
 
     public Order findById(String id) {
-        synchronized (orders) {
-            for (int i = 0; i < orders.size(); i++) {
-                Order o = (Order) orders.get(i);
-                if (o.getId().equals(id)) return o;
-            }
-        }
-        return null;
+        return orders.stream()
+                .filter(o -> o.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 }
