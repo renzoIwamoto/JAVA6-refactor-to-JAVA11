@@ -3,6 +3,7 @@ package com.example.legacy.app;
 import com.example.legacy.model.Customer;
 import com.example.legacy.model.Order;
 import com.example.legacy.repository.OrderRepository;
+import com.example.legacy.repository.OrderRepositoryImpl;
 import com.example.legacy.service.OrderService;
 import com.example.legacy.legacy.XmlMarshaller;
 import com.example.legacy.legacy.LegacyBase64;
@@ -15,7 +16,7 @@ import java.util.UUID;
 public class App {
     public static void main(String[] args) throws Exception {
         SecurityBootstrap.install();
-        OrderRepository repository = new OrderRepository();
+        OrderRepository repository = new OrderRepositoryImpl();
         OrderService service = new OrderService(repository);
 
         Customer c = new Customer(UUID.randomUUID().toString(), "Renzo Iwamoto", "renzo@example.com");

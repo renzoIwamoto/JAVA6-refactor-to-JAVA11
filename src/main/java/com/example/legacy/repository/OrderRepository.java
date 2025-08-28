@@ -3,21 +3,11 @@ package com.example.legacy.repository;
 import com.example.legacy.model.Order;
 
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-public class OrderRepository {
-    private final List<Order> orders = new CopyOnWriteArrayList<>();
+public interface OrderRepository {
+    void save(Order o);
 
-    public void save(Order o) { orders.add(o); }
+    List<Order> findAll();
 
-    public List<Order> findAll() {
-        return List.copyOf(orders);
-    }
-
-    public Order findById(String id) {
-        return orders.stream()
-                .filter(o -> o.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
+    Order findById(String id);
 }
