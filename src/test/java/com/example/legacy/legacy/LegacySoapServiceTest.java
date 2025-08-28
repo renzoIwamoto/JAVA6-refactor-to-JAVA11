@@ -95,7 +95,7 @@ class LegacySoapServiceTest {
         
         when(mockOrderService.createOrder(any(Customer.class), eq(amount)))
             .thenReturn(mockOrder);
-        when(mockOrderService.listByCustomer(anyString()))
+        when(mockOrderService.getOrdersByCustomer(anyString()))
             .thenReturn(customerOrders);
         
         // When
@@ -106,10 +106,10 @@ class LegacySoapServiceTest {
         
         // Verify interactions
         verify(mockOrderService).createOrder(argThat(customer -> 
-            customer.getName().equals(customerName) &&
-            customer.getEmail().equals(customerName + "@example.com")), 
+            customer.name().equals(customerName) &&
+            customer.email().equals(customerName + "@example.com")), 
             eq(amount));
-        verify(mockOrderService).listByCustomer(anyString());
+        verify(mockOrderService).getOrdersByCustomer(anyString());
     }
 
     @Test
@@ -128,7 +128,7 @@ class LegacySoapServiceTest {
         
         when(mockOrderService.createOrder(any(Customer.class), eq(amount)))
             .thenReturn(newOrder);
-        when(mockOrderService.listByCustomer(anyString()))
+        when(mockOrderService.getOrdersByCustomer(anyString()))
             .thenReturn(existingOrders);
         
         // When
@@ -149,7 +149,7 @@ class LegacySoapServiceTest {
         
         when(mockOrderService.createOrder(any(Customer.class), eq(0.0)))
             .thenReturn(zeroOrder);
-        when(mockOrderService.listByCustomer(anyString()))
+        when(mockOrderService.getOrdersByCustomer(anyString()))
             .thenReturn(List.of(zeroOrder));
         
         // When
@@ -171,7 +171,7 @@ class LegacySoapServiceTest {
         
         when(mockOrderService.createOrder(any(Customer.class), eq(-50.0)))
             .thenReturn(refundOrder);
-        when(mockOrderService.listByCustomer(anyString()))
+        when(mockOrderService.getOrdersByCustomer(anyString()))
             .thenReturn(List.of(refundOrder));
         
         // When
@@ -192,28 +192,28 @@ class LegacySoapServiceTest {
             new Order("order-3", "customer-1", 150.0, Instant.now())
         );
         
-        when(mockOrderService.listAll()).thenReturn(allOrders);
+        when(mockOrderService.getAllOrders()).thenReturn(allOrders);
         
         // When
         int result = soapService.countAllOrders();
         
         // Then
         assertThat(result).isEqualTo(3);
-        verify(mockOrderService).listAll();
+        verify(mockOrderService).getAllOrders();
     }
 
     @Test
     @DisplayName("Given no orders exist, When counting all orders, Then zero is returned")
     void givenNoOrdersExist_WhenCountingAllOrders_ThenZeroIsReturned() {
         // Given
-        when(mockOrderService.listAll()).thenReturn(List.of());
+        when(mockOrderService.getAllOrders()).thenReturn(List.of());
         
         // When
         int result = soapService.countAllOrders();
         
         // Then
         assertThat(result).isEqualTo(0);
-        verify(mockOrderService).listAll();
+        verify(mockOrderService).getAllOrders();
     }
 
     @Test
@@ -228,14 +228,14 @@ class LegacySoapServiceTest {
             new Order("5", "c5", 5.0, Instant.now())
         );
         
-        when(mockOrderService.listAll()).thenReturn(largeOrderList);
+        when(mockOrderService.getAllOrders()).thenReturn(largeOrderList);
         
         // When
         int result = soapService.countAllOrders();
         
         // Then
         assertThat(result).isEqualTo(5);
-        verify(mockOrderService).listAll();
+        verify(mockOrderService).getAllOrders();
     }
 
     @Test
@@ -249,7 +249,7 @@ class LegacySoapServiceTest {
         
         when(mockOrderService.createOrder(any(Customer.class), eq(amount)))
             .thenReturn(mockOrder);
-        when(mockOrderService.listByCustomer(anyString()))
+        when(mockOrderService.getOrdersByCustomer(anyString()))
             .thenReturn(List.of(mockOrder));
         
         // When
@@ -259,8 +259,8 @@ class LegacySoapServiceTest {
         assertThat(result).isEqualTo(1);
         
         verify(mockOrderService).createOrder(argThat(customer -> 
-            customer.getName().equals("José María Señor-Åström") &&
-            customer.getEmail().equals("José María Señor-Åström@example.com")), 
+            customer.name().equals("José María Señor-Åström") &&
+            customer.email().equals("José María Señor-Åström@example.com")), 
             eq(amount));
     }
 }

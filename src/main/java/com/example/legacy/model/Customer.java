@@ -1,17 +1,21 @@
 package com.example.legacy.model;
 
-public class Customer {
-    private final String id;
-    private final String name;
-    private final String email;
+import java.util.Objects;
 
-    public Customer(String id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
+public record Customer(String id, String name, String email) {
+    public Customer {
+        Objects.requireNonNull(id, "Customer ID cannot be null");
+        Objects.requireNonNull(name, "Customer name cannot be null");
+        Objects.requireNonNull(email, "Customer email cannot be null");
+        
+        if (id.isBlank()) {
+            throw new IllegalArgumentException("Customer ID cannot be blank");
+        }
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Customer name cannot be blank");
+        }
+        if (email.isBlank()) {
+            throw new IllegalArgumentException("Customer email cannot be blank");
+        }
     }
-
-    public String getId() { return id; }
-    public String getName() { return name; }
-    public String getEmail() { return email; }
 }

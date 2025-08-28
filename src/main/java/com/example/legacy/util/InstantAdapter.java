@@ -6,12 +6,12 @@ import java.time.Instant;
 public class InstantAdapter extends XmlAdapter<String, Instant> {
 
     @Override
-    public Instant unmarshal(String value) throws Exception {
-        return value != null ? Instant.parse(value) : null;
+    public Instant unmarshal(String xmlDateString) throws Exception {
+        return xmlDateString != null ? Instant.parse(xmlDateString) : null;
     }
 
     @Override
-    public String marshal(Instant instant) throws Exception {
-        return instant != null ? instant.toString() : null;
+    public String marshal(Instant instantToSerialize) throws Exception {
+        return instantToSerialize != null ? instantToSerialize.toString() : null;
     }
 }

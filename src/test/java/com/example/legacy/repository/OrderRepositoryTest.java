@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Optional;
 
 @DisplayName("OrderRepository Tests")
 class OrderRepositoryTest {
@@ -98,35 +99,35 @@ class OrderRepositoryTest {
         repository.save(order);
         
         // When
-        Order result = repository.findById("order-123");
+        Optional<Order> result = repository.findById("order-123");
         
         // Then
-        assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(order);
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(order);
     }
 
     @Test
-    @DisplayName("Given no matching order, When finding by ID, Then null is returned")
-    void givenNoMatchingOrder_WhenFindingById_ThenNullIsReturned() {
+    @DisplayName("Given no matching order, When finding by ID, Then empty Optional is returned")
+    void givenNoMatchingOrder_WhenFindingById_ThenEmptyOptionalIsReturned() {
         // Given
         Order order = new Order("order-123", "customer-1", 99.99, fixedTime);
         repository.save(order);
         
         // When
-        Order result = repository.findById("nonexistent-id");
+        Optional<Order> result = repository.findById("nonexistent-id");
         
         // Then
-        assertThat(result).isNull();
+        assertThat(result).isEmpty();
     }
 
     @Test
-    @DisplayName("Given empty repository, When finding by ID, Then null is returned")
-    void givenEmptyRepository_WhenFindingById_ThenNullIsReturned() {
+    @DisplayName("Given empty repository, When finding by ID, Then empty Optional is returned")
+    void givenEmptyRepository_WhenFindingById_ThenEmptyOptionalIsReturned() {
         // When
-        Order result = repository.findById("any-id");
+        Optional<Order> result = repository.findById("any-id");
         
         // Then
-        assertThat(result).isNull();
+        assertThat(result).isEmpty();
     }
 
     @Test
@@ -142,13 +143,13 @@ class OrderRepositoryTest {
         repository.save(order3);
         
         // When
-        Order result = repository.findById("order-222");
+        Optional<Order> result = repository.findById("order-222");
         
         // Then
-        assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(order2);
-        assertThat(result.getCustomerId()).isEqualTo("customer-2");
-        assertThat(result.getAmount()).isEqualTo(200.0);
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(order2);
+        assertThat(result.get().getCustomerId()).isEqualTo("customer-2");
+        assertThat(result.get().getAmount()).isEqualTo(200.0);
     }
 
     @Test

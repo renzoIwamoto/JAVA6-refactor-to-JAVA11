@@ -117,7 +117,7 @@ class OrderServiceTest {
         when(mockRepository.findAll()).thenReturn(expectedOrders);
         
         // When
-        List<Order> result = orderService.listAll();
+        List<Order> result = orderService.getAllOrders();
         
         // Then
         assertThat(result).isEqualTo(expectedOrders);
@@ -131,7 +131,7 @@ class OrderServiceTest {
         when(mockRepository.findAll()).thenReturn(List.of());
         
         // When
-        List<Order> result = orderService.listAll();
+        List<Order> result = orderService.getAllOrders();
         
         // Then
         assertThat(result).isEmpty();
@@ -152,7 +152,7 @@ class OrderServiceTest {
         when(mockRepository.findAll()).thenReturn(allOrders);
         
         // When
-        List<Order> result = orderService.listByCustomer(targetCustomerId);
+        List<Order> result = orderService.getOrdersByCustomer(targetCustomerId);
         
         // Then
         assertThat(result).hasSize(2);
@@ -176,7 +176,7 @@ class OrderServiceTest {
         when(mockRepository.findAll()).thenReturn(allOrders);
         
         // When
-        List<Order> result = orderService.listByCustomer(customerId);
+        List<Order> result = orderService.getOrdersByCustomer(customerId);
         
         // Then
         assertThat(result).isEmpty();
@@ -189,7 +189,7 @@ class OrderServiceTest {
         when(mockRepository.findAll()).thenReturn(List.of());
         
         // When
-        List<Order> result = orderService.listByCustomer("any-customer");
+        List<Order> result = orderService.getOrdersByCustomer("any-customer");
         
         // Then
         assertThat(result).isEmpty();

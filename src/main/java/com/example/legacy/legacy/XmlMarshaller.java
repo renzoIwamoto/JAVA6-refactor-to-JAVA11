@@ -7,20 +7,35 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Objects;
 
 public class XmlMarshaller {
-    public static String toXml(Order o) throws Exception {
-        JAXBContext ctx = JAXBContext.newInstance(Order.class);
-        Marshaller m = ctx.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        StringWriter sw = new StringWriter();
-        m.marshal(o, sw);
-        return sw.toString();
+    public static String toXml(Order order) throws Exception {
+        Objects.requireNonNull(order, "Order cannot be null");
+        
+        var jaxbContext = JAXBContext.newInstance(Order.class);
+        var xmlMarshaller = jaxbContext.createMarshaller();
+        xmlMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        
+        var xmlStringWriter = new StringWriter();
+        xmlMarshaller.marshal(order, xmlStringWriter);
+        return xmlStringWriter.toString();
     }
 
-    public static Order fromXml(String xml) throws Exception {
-        JAXBContext ctx = JAXBContext.newInstance(Order.class);
-        Unmarshaller u = ctx.createUnmarshaller();
-        return (Order) u.unmarshal(new StringReader(xml));
+    public static Order fromXml(String xmlContent) throws Exception {
+        Objects.requireNonNull(xmlContent, "XML content cannot be null");
+        if (xmlContent.isBlank()) {
+            throw new IllegalArgumentException("XML content cannot be blank");
+        }
+        
+        var jaxbContext = JAXBContext.newInstance(Order.class);
+        var xmlUnmarshaller = jaxbContext.createUnmarshaller();
+        
+        var unmarshalledObject = xmlUnmarshaller.unmarshal(new StringReader(xmlContent));
+        if (unmarshalledObject instanceof Order deserializedOrder) {
+            return deserializedOrder;
+        }
+        
+        throw new IllegalArgumentException("XML does not represent a valid Order object");
     }
 }

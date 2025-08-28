@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("Customer Model Tests")
 class CustomerTest {
@@ -20,9 +21,9 @@ class CustomerTest {
         Customer customer = new Customer(id, name, email);
         
         // Then
-        assertThat(customer.getId()).isEqualTo(id);
-        assertThat(customer.getName()).isEqualTo(name);
-        assertThat(customer.getEmail()).isEqualTo(email);
+        assertThat(customer.id()).isEqualTo(id);
+        assertThat(customer.name()).isEqualTo(name);
+        assertThat(customer.email()).isEqualTo(email);
     }
 
     @Test
@@ -36,39 +37,44 @@ class CustomerTest {
         
         // When & Then - Multiple calls should return same values
         for (int i = 0; i < 3; i++) {
-            assertThat(customer.getId()).isEqualTo(id);
-            assertThat(customer.getName()).isEqualTo(name);
-            assertThat(customer.getEmail()).isEqualTo(email);
+            assertThat(customer.id()).isEqualTo(id);
+            assertThat(customer.name()).isEqualTo(name);
+            assertThat(customer.email()).isEqualTo(email);
         }
     }
 
     @Test
-    @DisplayName("Given null values, When creating Customer, Then null values are stored")
-    void givenNullValues_WhenCreatingCustomer_ThenNullValuesAreStored() {
-        // When
-        Customer customer = new Customer(null, null, null);
-        
-        // Then
-        assertThat(customer.getId()).isNull();
-        assertThat(customer.getName()).isNull();
-        assertThat(customer.getEmail()).isNull();
+    @DisplayName("Given null values, When creating Customer, Then exception is thrown")
+    void givenNullValues_WhenCreatingCustomer_ThenExceptionIsThrown() {
+        // When & Then
+        assertThatThrownBy(() -> new Customer(null, "name", "email"))
+            .isInstanceOf(NullPointerException.class)
+            .hasMessage("Customer ID cannot be null");
+            
+        assertThatThrownBy(() -> new Customer("id", null, "email"))
+            .isInstanceOf(NullPointerException.class)
+            .hasMessage("Customer name cannot be null");
+            
+        assertThatThrownBy(() -> new Customer("id", "name", null))
+            .isInstanceOf(NullPointerException.class)
+            .hasMessage("Customer email cannot be null");
     }
 
     @Test
-    @DisplayName("Given empty strings, When creating Customer, Then empty strings are stored")
-    void givenEmptyStrings_WhenCreatingCustomer_ThenEmptyStringsAreStored() {
-        // Given
-        String id = "";
-        String name = "";
-        String email = "";
-        
-        // When
-        Customer customer = new Customer(id, name, email);
-        
-        // Then
-        assertThat(customer.getId()).isEmpty();
-        assertThat(customer.getName()).isEmpty();
-        assertThat(customer.getEmail()).isEmpty();
+    @DisplayName("Given empty strings, When creating Customer, Then exception is thrown")
+    void givenEmptyStrings_WhenCreatingCustomer_ThenExceptionIsThrown() {
+        // When & Then
+        assertThatThrownBy(() -> new Customer("", "name", "email"))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Customer ID cannot be blank");
+            
+        assertThatThrownBy(() -> new Customer("id", "", "email"))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Customer name cannot be blank");
+            
+        assertThatThrownBy(() -> new Customer("id", "name", ""))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Customer email cannot be blank");
     }
 
     @Test
@@ -83,12 +89,12 @@ class CustomerTest {
         Customer customer = new Customer(longId, longName, longEmail);
         
         // Then
-        assertThat(customer.getId()).hasSize(1000);
-        assertThat(customer.getName()).startsWith("John Doe");
-        assertThat(customer.getEmail()).endsWith("@example.com");
-        assertThat(customer.getId()).isEqualTo(longId);
-        assertThat(customer.getName()).isEqualTo(longName);
-        assertThat(customer.getEmail()).isEqualTo(longEmail);
+        assertThat(customer.id()).hasSize(1000);
+        assertThat(customer.name()).startsWith("John Doe");
+        assertThat(customer.email()).endsWith("@example.com");
+        assertThat(customer.id()).isEqualTo(longId);
+        assertThat(customer.name()).isEqualTo(longName);
+        assertThat(customer.email()).isEqualTo(longEmail);
     }
 
     @Test
@@ -103,8 +109,8 @@ class CustomerTest {
         Customer customer = new Customer(id, name, email);
         
         // Then
-        assertThat(customer.getId()).isEqualTo(id);
-        assertThat(customer.getName()).isEqualTo(name);
-        assertThat(customer.getEmail()).isEqualTo(email);
+        assertThat(customer.id()).isEqualTo(id);
+        assertThat(customer.name()).isEqualTo(name);
+        assertThat(customer.email()).isEqualTo(email);
     }
 }
